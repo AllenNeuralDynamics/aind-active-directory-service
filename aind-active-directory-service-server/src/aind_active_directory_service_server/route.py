@@ -1,11 +1,12 @@
 """Module to handle endpoint responses"""
 
-from fastapi import APIRouter, Depends, HTTPException, Path, status
-from requests_toolbelt.sessions import BaseUrlSession
+from fastapi import APIRouter, HTTPException, status
+from fastapi_cache.decorator import cache
 
-from aind_active_directory_service_server.handler import SessionHandler
-from aind_active_directory_service_server.models import Content, HealthCheck
-from aind_active_directory_service_server.session import get_session
+from ms_active_directory import ADDomain
+
+from aind_active_directory_service_server.models import HealthCheck, UserInfo
+from aind_active_directory_service_server.configs import settings
 
 router = APIRouter()
 
@@ -29,20 +30,32 @@ async def get_health() -> HealthCheck:
 
 
 @router.get(
-    "/{example_arg}",
-    response_model=Content,
+    "/user_info/{username}",
+    response_model=UserInfo,
 )
-async def get_content(
-    example_arg: str = Path(..., examples=["raw", "length"]),
-    session: BaseUrlSession = Depends(get_session),
-):
+@cache(expire=86400)
+async def get_user_from_active_directory(username: str) -> UserInfo:
+    """Queries active directory for user information
+
+    Params:
+        username (str): user login or full name
+
+    Returns:
+        UserInfo: user information from Active Directory
     """
-    ## Example content
-    Return either the raw content or the number of characters.
-    """
-    content = SessionHandler(session=session).get_info(example_arg=example_arg)
-    # Adding this for illustrative purposes.
-    if len(content.info) == 0:
-        raise HTTPException(status_code=404, detail="Not found")
-    else:
-        return content
+    domain = ADDomain(settings.domain)
+    ad_session = domain.create_session_as_user(
+        settings.username,
+        settings.password.get_secret_value(),
+    )
+    ad_user = ad_session.find_user_by_name(username, attributes_to_lookup=["mail"])
+    if ad_user is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"User {username} not found in the institute Active Directory",
+        )
+    return UserInfo(
+        username=ad_user.samaccount_name,
+        full_name=ad_user.common_name,
+        email=ad_user.all_attributes["mail"],
+    )

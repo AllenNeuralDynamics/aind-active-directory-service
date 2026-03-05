@@ -14,8 +14,9 @@ class HealthCheck(BaseModel):
     service_version: str = __version__
 
 
-class Content(BaseModel):
-    """Response model for querying example content"""
+class UserInfo(BaseModel):
+    """Response model for user information from Active Directory."""
 
-    info: str = Field(..., description="Example Info")
-    arg: str = Field(..., description="Argument passed into request")
+    username: str = Field(..., description="SAM account name of the user")
+    full_name: str = Field(..., description="Common name of the user")
+    email: str = Field(..., description="Email address of the user")

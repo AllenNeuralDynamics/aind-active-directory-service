@@ -15,17 +15,17 @@ log_level = os.getenv("LOG_LEVEL", "INFO")
 logging.basicConfig(level=log_level)
 
 description = """
-## aind-service-template
+## aind-active-directory-service
 
-Service to pull data from example backend.
+Service to pull data from Microsoft Active Directory.
 
 """
 
 # noinspection PyTypeChecker
 app = FastAPI(
-    title="aind-service-template",
+    title="aind-active-directory-service",
     description=description,
-    summary="Serves data from example backend.",
+    summary="Serves data from Microsoft Active Directory.",
     version=service_version,
 )
 
