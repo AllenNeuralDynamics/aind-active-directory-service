@@ -12,7 +12,6 @@ from fastapi_cache.backends.inmemory import InMemoryBackend
 from fastapi_cache.backends.redis import RedisBackend
 from collections.abc import AsyncIterator
 
-# from redis import asyncio as aioredis  # noqa
 from redis.asyncio import from_url # noqa
 from aind_active_directory_service_server import __version__ as service_version
 from aind_active_directory_service_server.route import router
