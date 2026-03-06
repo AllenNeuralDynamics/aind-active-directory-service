@@ -1,8 +1,8 @@
 """Module for settings to connect to backend"""
 
-from pydantic import Field, SecretStr
+from typing import Optional
+from pydantic import Field, SecretStr, RedisDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
 
 class Settings(BaseSettings):
     """
@@ -18,6 +18,9 @@ class Settings(BaseSettings):
         ..., description="Password to connect to the active directory"
     )
     domain: str = Field("corp.alleninstitute.org", description="Domain to connect to")
+    redis_url: Optional[RedisDsn] = Field(
+        None, description="Redis URL for caching (optional, defaults to in-memory cache)"
+    )
 
 
 settings = Settings()
