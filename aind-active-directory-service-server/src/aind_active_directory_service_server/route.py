@@ -48,7 +48,9 @@ async def get_user_from_active_directory(username: str) -> UserInfo:
         settings.username,
         settings.password.get_secret_value(),
     )
-    ad_user = ad_session.find_user_by_name(username, attributes_to_lookup=["mail"])
+    ad_user = ad_session.find_user_by_name(
+        username, attributes_to_lookup=["mail"]
+    )
     if ad_user is None:
         raise HTTPException(
             status_code=404,

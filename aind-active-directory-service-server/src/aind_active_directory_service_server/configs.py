@@ -4,6 +4,7 @@ from typing import Optional
 from pydantic import Field, SecretStr, RedisDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+
 class Settings(BaseSettings):
     """
     ### Settings needed to connect to the active directory.
@@ -17,9 +18,10 @@ class Settings(BaseSettings):
     password: SecretStr = Field(
         ..., description="Password to connect to the active directory"
     )
-    domain: str = Field("corp.alleninstitute.org", description="Domain to connect to")
+    domain: str = Field(..., description="Domain to connect to")
     redis_url: Optional[RedisDsn] = Field(
-        None, description="Redis URL for caching (optional, defaults to in-memory cache)"
+        None,
+        description="Redis URL for caching (optional, defaults to in-memory cache)",
     )
 
 
