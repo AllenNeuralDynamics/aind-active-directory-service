@@ -17,10 +17,12 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = [
-    'requests-toolbelt',  # Used for example. Remove if not needed.
     'pydantic>=2.0',
     'pydantic-settings>=2.0',
     'fastapi[standard]>=0.114.0',
+    "ms-active-directory>=1.14.1",
+    "fastapi-cache2>=0.2.2",
+    "redis"
 ]
 
 [project.optional-dependencies]

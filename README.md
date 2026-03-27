@@ -1,5 +1,5 @@
-# aind-service-template
-A template repo that can be used for rapid development of FastAPI services.
+# aind-active-directory-service
+Small service to connect to the Institute's Active Directory domain.
 
 ## Usage
 
