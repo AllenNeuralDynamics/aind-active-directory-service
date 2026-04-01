@@ -92,5 +92,7 @@ fail-under = 100
 asyncio_mode="auto"
 asyncio_default_fixture_loop_scope="function"
 env = [
-    "MYENV_HOST=example"
+    "AD_DOMAIN=example_domain",
+    "AD_USERNAME=example_username",
+    "AD_PASSWORD=example_password"
 ]
