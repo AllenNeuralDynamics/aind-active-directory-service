@@ -11,7 +11,7 @@ class Settings(SecretsManagerBaseSettings):
     We will just connect to an example active directory.
     """
 
-    model_config = SettingsConfigDict(env_prefix="AD_", case_sensitive=False)
+    model_config = SettingsConfigDict(env_prefix="AD_")
     username: str = Field(
         ..., description="Username to connect to the active directory"
     )
