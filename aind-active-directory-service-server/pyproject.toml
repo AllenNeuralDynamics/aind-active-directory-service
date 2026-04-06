@@ -22,6 +22,7 @@ dependencies = [
     'fastapi[standard]>=0.114.0',
     "ms-active-directory>=1.14.1",
     "fastapi-cache2>=0.2.2",
+    'aind-settings-utils>=0.1.0',
     "redis"
 ]
 

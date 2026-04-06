@@ -2,10 +2,10 @@
 
 from typing import Optional
 from pydantic import Field, SecretStr, RedisDsn
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import SettingsConfigDict
+from aind_settings_utils.aws import SecretsManagerBaseSettings
 
-
-class Settings(BaseSettings):
+class Settings(SecretsManagerBaseSettings):
     """
     ### Settings needed to connect to the active directory.
     We will just connect to an example active directory.
